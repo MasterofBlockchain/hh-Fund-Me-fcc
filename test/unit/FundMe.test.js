@@ -1,7 +1,7 @@
 const { deployments, ethers, getNamedAccounts } = require("hardhat")
 const { assert } = require("chai")
 
-describe("FundMe", async function () {
+describe("FundMe", function () {
     let fundMe
     let deployer
     let mockV3Aggregator
@@ -16,7 +16,7 @@ describe("FundMe", async function () {
         )
     })
 
-    describe("constructor", async function () {
+    describe("constructor", function () {
         it("sets the right address for aggregator", async function () {
             const response = await fundMe.priceFeed()
             assert.equal(response, mockV3Aggregator.address)

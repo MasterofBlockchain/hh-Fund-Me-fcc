@@ -1,6 +1,7 @@
 //SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.8;
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "./PriceConvertor.sol";
 
@@ -17,15 +18,26 @@ error FundMe_NotOwner();
  */
 
 contract FundMe {
+    //type declaration
     using PriceConvertor for uint256;
 
-    uint256 public constant MINIMUM_USD = 50 * 1e18;
-
-    //cost 813531
-    //non const 833103
-    address[] public funders;
+    //state variable
     mapping(address => uint256) public AddrsstoFunds;
+    address[] public funders;
     address public immutable i_owner;
+
+    uint256 public constant MINIMUM_USD = 50 * 1e18;
+    AggregatorV3Interface public priceFeed;
+
+    //function order
+    ////constructor
+    //// receive
+    ////fallback
+    ////externa;
+    ////public
+    ////internal
+    ////private
+    ////view,pure
 
     modifier OnlyOwner() {
         //require(msg.sender ==i_owner, "not owner");
@@ -34,8 +46,6 @@ contract FundMe {
         }
         _;
     }
-
-    AggregatorV3Interface public priceFeed;
 
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
