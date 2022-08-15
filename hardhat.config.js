@@ -3,7 +3,6 @@ require("dotenv").config()
 require("hardhat-deploy")
 require("@nomiclabs/hardhat-ethers")
 
-require("@nomicfoundation/hardhat-chai-matchers")
 const GOERLI_RPC_URL =
     process.env.GOERLI_RPC_URL || "https://eth-goerli/example"
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "oxkey"
