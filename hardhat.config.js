@@ -5,12 +5,16 @@ require("@nomiclabs/hardhat-ethers")
 
 const GOERLI_RPC_URL =
     process.env.GOERLI_RPC_URL || "https://eth-goerli/example"
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "oxkey"
+const PRIVATE_KEY =
+    process.env.PRIVATE_KEY ||
+    "0x0000000000000000000000000000000000000000000000000000000000000000"
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "key"
 const LOCAL_HOST_API = process.env.LOCAL_HOST_API || "key"
 COIN_MARKET_CAP_API = process.env.COIN_MARKET_CAP_API || "key"
 RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "key"
-RINKEBY_PRIVATE_KEY = process.env.RINKEBY_PRIVATE_KEY || "key"
+RINKEBY_PRIVATE_KEY =
+    process.env.RINKEBY_PRIVATE_KEY ||
+    "0x0000000000000000000000000000000000000000000000000000000000000000"
 module.exports = {
     //solidity: "0.8.8",
     solidity: {
