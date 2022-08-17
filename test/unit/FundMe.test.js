@@ -106,7 +106,9 @@ describe("FundMe", function () {
                 endingDeployerBalance.add(gasCost).toString()
             )
             //make sure funders are reset
-            await expect(fundme.funders(0)).to.be.reverted
+            
+            // Make a getter for storage variables
+            await expect(fundMe.getFunder(0)).to.be.reverted
 
             for (i = 1; i < 6; i++) {
                 assert.equal(await fundme.AddrsstoFunds(accounts[i].address), 0)
