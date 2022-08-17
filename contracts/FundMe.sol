@@ -81,3 +81,7 @@ contract FundMe {
         }
     }
 }
+
+function getFunder(uint256 index) public view returns (address) {
+        return funders[index];
+    }
