@@ -58,7 +58,6 @@ describe("FundMe", function () {
             const transactionReceipt = await transactionResponse.wait(1)
             const { gasUsed, effectiveGasPrice } = transactionReceipt
             const gasCost = gasUsed.mul(effectiveGasPrice)
-
             const endinFundMebalance = await fundme.provider.getBalance(
                 fundme.address
             )
@@ -72,43 +71,49 @@ describe("FundMe", function () {
                 endingDeployerBalance.add(gasCost).toString()
             )
         })
-        it.only("allows us to withdrawl with multiple funders", async function () {
+        it("allows us to withdrawl with multiple funders", async function () {
             //Arrange
             const accounts = await ethers.getSigners()
+
             for (let i = 1; i < 6; i++) {
                 const fundMeConnectedContract = await fundme.connect(
                     accounts[i]
                 )
                 await fundMeConnectedContract.fund({ value: sendValue })
             }
-            const startingFundMeBalance = await fundme.provider.getBalance(
+
+            const startingFundMeBalance = await ethers.provider.getBalance(
                 fundme.address
             )
-            const staringDeployerBalance = await fundme.provider.getBalance(
+            const staringDeployerBalance = await ethers.provider.getBalance(
                 deployer
             )
+
             //Act
             const transactionResponse = await fundme.withdrawal()
             const transactionReceipt = await transactionResponse.wait(1)
-            const { gasUsed, effectiveGasPrice } = transactionReceipt
+            const { gasUsed, effectiveGasPrice } = await transactionReceipt
             const gasCost = gasUsed.mul(effectiveGasPrice)
+
             //assert
-            const endinFundMebalance = await fundme.provider.getBalance(
+            const endinFundMebalance = await ethers.provider.getBalance(
                 fundme.address
             )
-            const endingDeployerBalance = await fundme.provider.getBalance(
+            const endingDeployerBalance = await ethers.provider.getBalance(
                 deployer
             )
+
             //assert
-            assert.equal(endinFundMebalance, 0)
+            assert.equal(endinFundMebalance.toString(), 0)
             assert.equal(
-                startingFundMeBalance.add(staringDeployerBalance),
+                staringDeployerBalance.add(startingFundMeBalance),
                 endingDeployerBalance.add(gasCost).toString()
             )
+
             //make sure funders are reset
             await expect(fundme.funders(0)).to.be.reverted
 
-            for (i = 1; i < 6; i++) {
+            for (let i = 1; i < 6; i++) {
                 assert.equal(await fundme.AddrsstoFunds(accounts[i].address), 0)
             }
         })

@@ -65,19 +65,21 @@ contract FundMe {
     }
 
     function withdrawal() public OnlyOwner {
-        (bool sent, ) = payable(msg.sender).call{value: address(this).balance}(
-            ""
-        );
-        require(sent, "not owner");
-
         for (
             uint256 fundersIndex = 0;
-            fundersIndex > funders.length;
+            fundersIndex < funders.length;
             fundersIndex++
         ) {
             address funder = funders[fundersIndex];
             AddrsstoFunds[funder] = 0;
-            funders = new address[](0);
         }
+
+        // reset the funders array.
+        funders = new address[](0);
+
+        (bool callSuccess, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
+        require(callSuccess, "not owner");
     }
 }
