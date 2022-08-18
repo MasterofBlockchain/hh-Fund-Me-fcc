@@ -53,11 +53,11 @@ module.exports = {
     },
 
     gasReporter: {
-        enabled: false,
+        enabled: true,
         outputFile: "gas-report.txt",
         noColors: true,
         currency: "USD",
-        coinmarketcap: COIN_MARKET_CAP_API,
-        //token: "MATIC",
+        //coinmarketcap: COIN_MARKET_CAP_API,
+        token: "MATIC",
     },
 }

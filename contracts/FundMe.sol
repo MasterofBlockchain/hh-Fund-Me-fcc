@@ -5,9 +5,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "./PriceConvertor.sol";
 
-//tres
-//gas 958055// const 935561
-//transaction cost 833,091 // const 813,531
+//constant and immutable does get storegd in storage but contract itself.abi
 
 error FundMe_NotOwner();
 
@@ -23,12 +21,12 @@ contract FundMe {
     using PriceConvertor for uint256;
 
     //state variable
-    mapping(address => uint256) public AddrsstoFunds;
-    address[] public funders;
-    address public immutable i_owner;
+    mapping(address => uint256) private s_AddrsstoFunds;
+    address[] private s_funders;
+    address private immutable i_owner;
 
     uint256 public constant MINIMUM_USD = 50 * 1e18;
-    AggregatorV3Interface public priceFeed;
+    AggregatorV3Interface public s_priceFeed;
 
     //function order
     ////constructor
@@ -50,34 +48,74 @@ contract FundMe {
 
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
-        priceFeed = AggregatorV3Interface(priceFeedAddress);
+        s_priceFeed = AggregatorV3Interface(priceFeedAddress);
         //non 23600
         //immutable 21508
     }
 
     function fund() public payable {
         require(
-            msg.value.GetConversionPrice(priceFeed) >= MINIMUM_USD,
+            msg.value.GetConversionPrice(s_priceFeed) >= MINIMUM_USD,
             "not enough funds"
         );
-        funders.push(msg.sender);
-        AddrsstoFunds[msg.sender] += msg.value;
+        s_funders.push(msg.sender);
+        s_AddrsstoFunds[msg.sender] += msg.value;
     }
 
     function withdrawal() public OnlyOwner {
-        (bool sent, ) = payable(msg.sender).call{value: address(this).balance}(
-            ""
-        );
-        require(sent, "not owner");
-
         for (
             uint256 fundersIndex = 0;
-            fundersIndex > funders.length;
+            fundersIndex < s_funders.length;
             fundersIndex++
         ) {
-            address funder = funders[fundersIndex];
-            AddrsstoFunds[funder] = 0;
-            funders = new address[](0);
+            address funder = s_funders[fundersIndex];
+            s_AddrsstoFunds[funder] = 0;
         }
+
+        // reset the funders array.
+        s_funders = new address[](0);
+
+        (bool callSuccess, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
+        //call vs delegatecall
+        require(callSuccess, "not owner");
+    }
+
+    function CheapWithdrawal() public payable OnlyOwner {
+        address[] memory funders = s_funders;
+        //mapping cant be in memory
+        for (
+            uint256 fundersIndex = 0;
+            fundersIndex < s_funders.length;
+            fundersIndex++
+        ) {
+            address funder = s_funders[fundersIndex];
+            s_AddrsstoFunds[funder] = 0;
+        }
+
+        s_funders = new address[](0);
+        (bool Success, ) = i_owner.call{value: address(this).balance}("");
+        require(Success);
+    }
+
+    function getOwner() public view returns (address) {
+        return i_owner;
+    }
+
+    function getFunder(uint256 index) public view returns (address) {
+        return s_funders[index];
+    }
+
+    function getAddresstoAmountfunded(address funder)
+        public
+        view
+        returns (uint256)
+    {
+        return s_AddrsstoFunds[funder];
+    }
+
+    function getPriceFeed() public view returns (AggregatorV3Interface) {
+        return s_priceFeed();
     }
 }
