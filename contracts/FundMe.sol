@@ -65,6 +65,7 @@ contract FundMe {
     function withdrawal() public OnlyOwner {
         for (
             uint256 fundersIndex = 0;
+<<<<<<< HEAD
             fundersIndex < s_funders.length;
             fundersIndex++
         ) {
@@ -74,10 +75,22 @@ contract FundMe {
 
         // reset the funders array.
         s_funders = new address[](0);
+=======
+            fundersIndex < funders.length;
+            fundersIndex++
+        ) {
+            address funder = funders[fundersIndex];
+            AddrsstoFunds[funder] = 0;
+        }
+
+        // reset the funders array.
+        funders = new address[](0);
+>>>>>>> 949f3268c433bf67bfb6dbe80378a5b936a29afd
 
         (bool callSuccess, ) = payable(msg.sender).call{
             value: address(this).balance
         }("");
+<<<<<<< HEAD
         //call vs delegatecall
         require(callSuccess, "not owner");
     }
@@ -117,5 +130,8 @@ contract FundMe {
 
     function getPriceFeed() public view returns (AggregatorV3Interface) {
         return s_priceFeed();
+=======
+        require(callSuccess, "not owner");
+>>>>>>> 949f3268c433bf67bfb6dbe80378a5b936a29afd
     }
 }

@@ -71,7 +71,11 @@ describe("FundMe", function () {
                 endingDeployerBalance.add(gasCost).toString()
             )
         })
+<<<<<<< HEAD
         it("allows us to withdrawl with multiple s_funders", async function () {
+=======
+        it("allows us to withdrawl with multiple funders", async function () {
+>>>>>>> 949f3268c433bf67bfb6dbe80378a5b936a29afd
             //Arrange
             const accounts = await ethers.getSigners()
 
@@ -109,6 +113,7 @@ describe("FundMe", function () {
                 staringDeployerBalance.add(startingFundMeBalance),
                 endingDeployerBalance.add(gasCost).toString()
             )
+<<<<<<< HEAD
 
             //make sure s_funders are reset
             await expect(fundme.s_funders(0)).to.be.reverted
@@ -180,6 +185,14 @@ describe("FundMe", function () {
                     await fundme.s_AddrsstoFunds(accounts[i].address),
                     0
                 )
+=======
+
+            //make sure funders are reset
+            await expect(fundme.funders(0)).to.be.reverted
+
+            for (let i = 1; i < 6; i++) {
+                assert.equal(await fundme.AddrsstoFunds(accounts[i].address), 0)
+>>>>>>> 949f3268c433bf67bfb6dbe80378a5b936a29afd
             }
         })
     })
