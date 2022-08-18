@@ -4,8 +4,7 @@ pragma solidity ^0.8.8;
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "./PriceConvertor.sol";
-
-//constant and immutable does get storegd in storage but contract itself.abi
+//constant and immutable does get storegd in storage but contract itself.
 
 error FundMe_NotOwner();
 
@@ -26,7 +25,7 @@ contract FundMe {
     address private immutable i_owner;
 
     uint256 public constant MINIMUM_USD = 50 * 1e18;
-    AggregatorV3Interface public s_priceFeed;
+    AggregatorV3Interface private s_priceFeed;
 
     //function order
     ////constructor
@@ -49,8 +48,6 @@ contract FundMe {
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
         s_priceFeed = AggregatorV3Interface(priceFeedAddress);
-        //non 23600
-        //immutable 21508
     }
 
     function fund() public payable {
@@ -65,7 +62,6 @@ contract FundMe {
     function withdrawal() public OnlyOwner {
         for (
             uint256 fundersIndex = 0;
-<<<<<<< HEAD
             fundersIndex < s_funders.length;
             fundersIndex++
         ) {
@@ -73,48 +69,33 @@ contract FundMe {
             s_AddrsstoFunds[funder] = 0;
         }
 
-        // reset the funders array.
+        // reset the s_funders array.
         s_funders = new address[](0);
-=======
-            fundersIndex < funders.length;
-            fundersIndex++
-        ) {
-            address funder = funders[fundersIndex];
-            AddrsstoFunds[funder] = 0;
-        }
-
-        // reset the funders array.
-        funders = new address[](0);
->>>>>>> 949f3268c433bf67bfb6dbe80378a5b936a29afd
 
         (bool callSuccess, ) = payable(msg.sender).call{
             value: address(this).balance
         }("");
-<<<<<<< HEAD
-        //call vs delegatecall
         require(callSuccess, "not owner");
     }
 
-    function CheapWithdrawal() public payable OnlyOwner {
+    function CheaperWithdrawal() public payable OnlyOwner {
         address[] memory funders = s_funders;
-        //mapping cant be in memory
+        //mmsping cant be in memory
+
         for (
             uint256 fundersIndex = 0;
             fundersIndex < s_funders.length;
             fundersIndex++
         ) {
-            address funder = s_funders[fundersIndex];
+            address funder = funders[fundersIndex];
             s_AddrsstoFunds[funder] = 0;
         }
-
         s_funders = new address[](0);
-        (bool Success, ) = i_owner.call{value: address(this).balance}("");
-        require(Success);
+        (bool success, ) = i_owner.call{value: address(this).balance}("");
+        require(success);
     }
 
-    function getOwner() public view returns (address) {
-        return i_owner;
-    }
+    //view and pure
 
     function getFunder(uint256 index) public view returns (address) {
         return s_funders[index];
@@ -129,9 +110,6 @@ contract FundMe {
     }
 
     function getPriceFeed() public view returns (AggregatorV3Interface) {
-        return s_priceFeed();
-=======
-        require(callSuccess, "not owner");
->>>>>>> 949f3268c433bf67bfb6dbe80378a5b936a29afd
+        return s_priceFeed;
     }
 }
