@@ -15,6 +15,11 @@ RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "key"
 RINKEBY_PRIVATE_KEY =
     process.env.RINKEBY_PRIVATE_KEY ||
     "0x0000000000000000000000000000000000000000000000000000000000000000"
+POLYGON_RPC_URL = process.env.POLYGON_RPC_URL || "key"
+
+POLYGON_PRIVATE_KEY =
+    process.env.POLYGON_PRIVATE_KEY ||
+    "0x0000000000000000000000000000000000000000000000000000000000000000"
 module.exports = {
     //solidity: "0.8.8",
     solidity: {
@@ -31,6 +36,12 @@ module.exports = {
             url: RINKEBY_RPC_URL,
             accounts: [RINKEBY_PRIVATE_KEY],
             chainId: 4,
+            blockConfirmations: 6,
+        },
+        polygon: {
+            url: POLYGON_RPC_URL,
+            accounts: [POLYGON_PRIVATE_KEY],
+            chainId: 80001,
             blockConfirmations: 6,
         },
         localhost: {
