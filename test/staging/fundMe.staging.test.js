@@ -16,12 +16,10 @@ develompentChains.includes(network.name)
 
           it("allow people to fund and withdraw", async function () {
               await FundMe.fund({ value: sendValue })
-              //added by discord
-              //   const tx = await FundMe.fund({ value: sendValue })
-              //   await tx.wait(1)
-              //mine lines
+
+              //course lines
               //await FundMe.withdrawal()
-              //added by github
+              //added by help
               const tx = await FundMe.withdrawal()
               await tx.wait(1)
               const endingBalance = await FundMe.provider.getBalance(
