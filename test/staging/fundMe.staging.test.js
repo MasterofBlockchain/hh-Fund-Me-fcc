@@ -28,13 +28,3 @@ develompentChains.includes(network.name)
               assert.equal(endingBalance.toString(), "0")
           })
       })
-
-//   it("allow people to fund and withdraw", async function () {
-//     await FundMe.fund({ value: sendValue })
-//     const tx = await FundMe.withdrawal()
-//     await tx.wait(1)
-//     const endingBalance = await FundMe.provider.getBalance(
-//         FundMe.address
-//     )
-//     assert.equal(endingBalance.toString(), "0")
-// })
