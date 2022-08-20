@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "description": "first Github",
     "author": "rob",
-    
     "devDependencies": {
         "@nomicfoundation/hardhat-toolbox": "^1.0.2",
         "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
@@ -17,14 +16,12 @@
         "dotenv": "^16.0.1",
         "solhint": "^3.3.7"
     },
-
     "scripts": {
-        
-        "test": "npx hardhat test",
+        "test": " npx hardhat test",
         "test:staging": "npx hardhat test --network goerli",
-        "lint": "npx solhint 'contracts/*.sol'",
+        "lint": "solhint 'contracts/*.sol'",
         "lint:fix": "npx solhint 'contracts/*.sol' --fix",
         "format": "npx prettier --write .",
-        "coverage": "npx hardhat coverage" 
+        "coverage": "npx hardhat coverage"
     }
 }

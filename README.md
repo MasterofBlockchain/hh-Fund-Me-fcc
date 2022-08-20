@@ -4,5 +4,6 @@ I have "hardhat-toolbox'  and mentioned dependencies comes with it.So does need 
 
 package.json=> scripts=> npm test => npm run test:staging =>npm run format => npm run coverage
 
-solhint contracts/FundMe.sol (for single file)
+`npm run lint`  and `npx lint` are not working but---
+solhint contracts/FundMe.sol (for single file) is working.
 solhint 'contracts/**/*.sol'(for contracts folder)
