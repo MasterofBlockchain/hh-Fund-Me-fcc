@@ -1,6 +1,6 @@
-NPM version is 7+. 
-I am using NPM. 
-I have "hardhat-toolbox'  and mentioned dependencies comes with it.
+NPM version is 7+.
+I am using NPM.
+I have "hardhat-toolbox' and mentioned dependencies comes with it.
 
 ```
 Ethers.js and harhdat-ethers
@@ -12,4 +12,3 @@ hardhat-gas-reporter
 solidity-coverage
 typechain
 ```
-
