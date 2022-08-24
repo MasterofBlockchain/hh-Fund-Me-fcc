@@ -47,7 +47,7 @@ contract FundMe {
 
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
-        s_priceFeed = AggregatorV3Interface(priceFeedAddress)
+        s_priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 
     function fund() public payable {
@@ -60,6 +60,18 @@ contract FundMe {
     }
 
     function withdrawal() public OnlyOwner {
+        // for(starting index, ending index, stepamount)
+        //for (0,5,+1)
+        //lets say `fundeINdex is 0` and `total funders are 5` and `stepamount is 1`
+        // now funderindex is 0 which is true because its less than Total funders which are 5. so it will
+        //move further and take stepamount which is `1`.. now fundersIndex is `1` which is still less than
+        //totalfunders and take stepamount. it will keep loopig until `INdexamount is 5` and it gets false.
+        //staring index culd be aby number where you want to start your index with.
+        //ending index could be totalnumber.abi
+        //steamount is how many numbers you want to go further
+        // < less
+        //> more
+
         for (
             uint256 fundersIndex = 0;
             fundersIndex < s_funders.length;
@@ -71,7 +83,7 @@ contract FundMe {
 
         // reset the s_funders array.
         s_funders = new address[](0);
-
+        //transfer,send and call
         (bool callSuccess, ) = payable(msg.sender).call{
             value: address(this).balance
         }("");

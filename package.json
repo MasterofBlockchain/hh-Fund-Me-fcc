@@ -17,11 +17,11 @@
         "solhint": "^3.3.7"
     },
     "scripts": {
-        "test": " npx hardhat test",
-        "test:staging": "npx hardhat test --network goerli",
-        "lint": "solhint 'contracts/*.sol'",
-        "lint:fix": "npx solhint 'contracts/*.sol' --fix",
-        "format": "npx prettier --write .",
-        "coverage": "npx hardhat coverage"
+        "test": "hardhat test",
+        "test:staging": "hardhat test --network goerli",
+        "lint": "solhint 'contracts/FundMe.sol'",
+        "lint:fix": "solhint 'contracts/*.sol' --fix",
+        "format": "prettier --write .",
+        "coverage": "hardhat coverage"
     }
 }
