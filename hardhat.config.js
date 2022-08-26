@@ -5,21 +5,14 @@ require("@nomiclabs/hardhat-ethers")
 
 const GOERLI_RPC_URL =
     process.env.GOERLI_RPC_URL || "https://eth-goerli/example"
-const PRIVATE_KEY =
-    process.env.PRIVATE_KEY ||
-    "0x0000000000000000000000000000000000000000000000000000000000000000"
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "key"
-const LOCAL_HOST_API = process.env.LOCAL_HOST_API || "key"
-COIN_MARKET_CAP_API = process.env.COIN_MARKET_CAP_API || "key"
-RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "key"
-RINKEBY_PRIVATE_KEY =
-    process.env.RINKEBY_PRIVATE_KEY ||
-    "0x0000000000000000000000000000000000000000000000000000000000000000"
-POLYGON_RPC_URL = process.env.POLYGON_RPC_URL || "key"
-
-POLYGON_PRIVATE_KEY =
-    process.env.POLYGON_PRIVATE_KEY ||
-    "0x0000000000000000000000000000000000000000000000000000000000000000"
+const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
+const LOCAL_HOST_API = process.env.LOCAL_HOST_API || ""
+COIN_MARKET_CAP_API = process.env.COIN_MARKET_CAP_API || ""
+RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || ""
+//RINKEBY_PRIVATE_KEY = process.env.RINKEBY_PRIVATE_KEY || ""
+POLYGON_RPC_URL = process.env.POLYGON_RPC_URL || ""
+//POLYGON_PRIVATE_KEY = process.env.POLYGON_PRIVATE_KEY || ""
 module.exports = {
     //solidity: "0.8.8",
     solidity: {
@@ -34,13 +27,13 @@ module.exports = {
         },
         rinkeby: {
             url: RINKEBY_RPC_URL,
-            accounts: [RINKEBY_PRIVATE_KEY],
+            accounts: [PRIVATE_KEY],
             chainId: 4,
             blockConfirmations: 6,
         },
         polygon: {
             url: POLYGON_RPC_URL,
-            accounts: [POLYGON_PRIVATE_KEY],
+            accounts: [PRIVATE_KEY],
             chainId: 80001,
             blockConfirmations: 6,
         },
