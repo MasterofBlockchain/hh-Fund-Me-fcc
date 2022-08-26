@@ -1,27 +1,20 @@
 const { getNamedAccounts, ethers, network } = require("hardhat")
-const { assert } = require("chai")
-
 const { develompentChains } = require("../../helper-hardhat-config")
+const { assert } = "chai"
 
 develompentChains.includes(network.name)
     ? describe.skip
-    : describe("FundMe", function () {
+    : describe("fundme", async function () {
           let FundMe
           let deployer
           const sendValue = ethers.utils.parseEther("1")
-          beforeEach(async function () {
+          beforEach(async function () {
               deployer = (await getNamedAccounts()).deployer
               FundMe = await ethers.getContract("FundMe", deployer)
           })
-
-          it("allow people to fund and withdraw", async function () {
-              await FundMe.fund({ value: sendValue })
-
-              //course lines
-              //await FundMe.withdrawal()
-              //added by help
-              const tx = await FundMe.withdrawal()
-              await tx.wait(1)
+          it("allow pople to fund and withdrawl", async function () {
+              await FundMe.fund({ Value: sendValue })
+              await FundMe.withdrawal()
               const endingBalance = await FundMe.provider.getBalance(
                   FundMe.address
               )
