@@ -7,7 +7,7 @@
 
 //2nd way to write// module.exports = async (hre) => {
 //     const { getNamedAccounts, deployments } = hre}
-const { network } = require("hardhat")
+const { network, ethers } = require("hardhat")
 const {
     networkconfig,
     develompentChains,

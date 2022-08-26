@@ -59,7 +59,7 @@ contract FundMe {
         s_AddrsstoFunds[msg.sender] += msg.value;
     }
 
-    function withdrawal() public OnlyOwner {
+    function withdrawal() public payable OnlyOwner {
         // for(starting index, ending index, stepamount)
         //for (0,5,+1)
         //lets say `fundeINdex is 0` and `total funders are 5` and `stepamount is 1`
@@ -87,7 +87,7 @@ contract FundMe {
         (bool callSuccess, ) = payable(msg.sender).call{
             value: address(this).balance
         }("");
-        require(callSuccess, "not owner");
+        require(callSuccess, "transfer failed");
     }
 
     function CheaperWithdrawal() public payable OnlyOwner {

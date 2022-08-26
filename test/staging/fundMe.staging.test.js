@@ -7,7 +7,7 @@ develompentChains.includes(network.name)
     : describe("fundme", async function () {
           let FundMe
           let deployer
-          const sendValue = ethers.utils.parseEther("1")
+          const sendValue = ethers.utils.parseEther("0.01")
           beforEach(async function () {
               deployer = (await getNamedAccounts()).deployer
               FundMe = await ethers.getContract("FundMe", deployer)
