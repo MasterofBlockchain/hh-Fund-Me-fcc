@@ -12,9 +12,16 @@ const { develompentChains } = require("../../helper-hardhat-config")
           const sendValue = ethers.utils.parseEther("1")
 
           beforeEach(async function () {
+              //const acounts = await ethers.getSigners()
+              // const accountZero = accounts[0]
+              //or
+              //const{deployer}= await getnamedAccounts()
+              //the above line is same as downline
               //const{deployer}= await getnamedAccounts()
               deployer = (await getNamedAccounts()).deployer
+              // `fixture` will automatic run eveyrything in `deploy` folder.
               await deployments.fixture(["all"])
+              //hardhat-deploy warps `ethers` in function called `getContract`
               fundme = await ethers.getContract("FundMe", deployer)
               MockV3Aggregator = await ethers.getContract(
                   "MockV3Aggregator",
@@ -37,15 +44,15 @@ const { develompentChains } = require("../../helper-hardhat-config")
                   )
               })
               it("updated the amount in the data structure", async function () {
-                  await fundme.fund({ value: sendValue })
+                  await fundme.fund({ value: sendValue }) // SendVAlue is "1" eth which is being sent to deployer account.
                   const response = await fundme.getAddresstoAmountfunded(
                       deployer
-                  )
+                  ) // now `deployer` has `1` eth.
                   assert.equal(response.toString(), sendValue.toString())
               })
               it("adds funders to array", async function () {
                   await fundme.fund({ value: sendValue })
-                  const funder = await fundme.getFunder(0)
+                  const funder = await fundme.getFunder(0) //`0` is the index and the address of `deployer`
                   assert.equal(funder, deployer)
               })
           })
@@ -55,6 +62,9 @@ const { develompentChains } = require("../../helper-hardhat-config")
               })
               it(" withdrawl ETH from a single founder", async function () {
                   //arrange
+
+                  //await ethers.provider.getbalance(FundMe.address)
+                  //or we can also write `name of the contract` than `ethers` like below.
                   const startingFundMeBalance =
                       await fundme.provider.getBalance(fundme.address)
                   const staringDeployerBalance =
@@ -62,6 +72,8 @@ const { develompentChains } = require("../../helper-hardhat-config")
                   //act
                   const transactionResponse = await fundme.withdrawal()
                   const transactionReceipt = await transactionResponse.wait(1)
+                  // we have checked `transReceipt` in `javascript debugger` and saw they are using gas.
+                  //hence dereived `gasused` and `effectiveGasPrice` from their.
                   const { gasUsed, effectiveGasPrice } = transactionReceipt
                   const gasCost = gasUsed.mul(effectiveGasPrice)
                   const endinFundMebalance = await fundme.provider.getBalance(
