@@ -13,7 +13,7 @@ const LOCAL_HOST_API = process.env.LOCAL_HOST_API || "key"
 const COIN_MARKET_CAP_API = process.env.COIN_MARKET_CAP_API || "key"
 const RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "key"
 const RINKEBY_PRIVATE_KEY =
-    const process.env.RINKEBY_PRIVATE_KEY ||
+    process.env.RINKEBY_PRIVATE_KEY ||
     "0x0000000000000000000000000000000000000000000000000000000000000000"
 const POLYGON_RPC_URL = process.env.POLYGON_RPC_URL || "key"
 
