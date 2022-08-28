@@ -1,4 +1,4 @@
-yes
+oki
 //downloads
 //hardhat-toolbox
 //dotenv
@@ -33,6 +33,10 @@ yes
 # npx hardhat deploy (local deployment)
 
 # npx hardhat deploy --network goerli (testnet deployment)
+
+# npx hardhat test (locally)
+
+# npx hardhat test --network goerli
 
 ----------------------ethers functions------------------------
 

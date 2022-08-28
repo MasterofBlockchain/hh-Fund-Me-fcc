@@ -15,7 +15,7 @@ develompentChains.includes(network.name)
           it("allow pople to fund and withdrawl", async function () {
               await FundMe.fund({ Value: sendValue })
               const tx = await FundMe.withdrawal()
-              await tx.wait(1)
+              await tx.wait(2)
               const endingBalance = await FundMe.provider.getBalance(
                   FundMe.address
               )
